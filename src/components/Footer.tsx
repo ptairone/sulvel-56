@@ -10,13 +10,25 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           <div>
             <div className="flex items-center space-x-2 mb-4">
-              <div className="bg-primary text-primary-foreground p-2 rounded-lg">
-                <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M16 2L26 8V16C26 22 20 28 16 30C12 28 6 22 6 16V8L16 2Z" stroke="currentColor" strokeWidth="2" fill="currentColor" fillOpacity="0.2"/>
-                  <circle cx="16" cy="16" r="6" stroke="currentColor" strokeWidth="2" fill="none"/>
-                  <path d="M16 12V16L19 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                </svg>
-              </div>
+              {loading ? (
+                <div className="bg-primary text-primary-foreground p-2 rounded-lg animate-pulse">
+                  <div className="w-6 h-6"></div>
+                </div>
+              ) : config?.logo_url ? (
+                <img 
+                  src={config.logo_url} 
+                  alt="Sulvel Tacógrafos" 
+                  className="h-8 w-auto object-contain"
+                />
+              ) : (
+                <div className="bg-primary text-primary-foreground p-2 rounded-lg">
+                  <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M16 2L26 8V16C26 22 20 28 16 30C12 28 6 22 6 16V8L16 2Z" stroke="currentColor" strokeWidth="2" fill="currentColor" fillOpacity="0.2"/>
+                    <circle cx="16" cy="16" r="6" stroke="currentColor" strokeWidth="2" fill="none"/>
+                    <path d="M16 12V16L19 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                  </svg>
+                </div>
+              )}
               <div>
                 <h3 className="text-xl font-bold">Sulvel Tacógrafos</h3>
               </div>

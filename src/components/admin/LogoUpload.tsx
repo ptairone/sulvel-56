@@ -89,14 +89,14 @@ const LogoUpload = () => {
         throw updateError;
       }
 
-      // Atualizar favicon
-      updateFavicon(data.publicUrl);
+      // Comentado: Não atualizar favicon automaticamente
+      // updateFavicon(data.publicUrl);
 
       setLogoUrl(data.publicUrl);
 
       toast({
-        title: "Logo e favicon atualizados!",
-        description: "A nova logo foi salva e o favicon foi alterado.",
+        title: "Logo atualizada!",
+        description: "A nova logo foi salva e aparecerá no cabeçalho do site.",
       });
     } catch (error: any) {
       toast({
@@ -206,7 +206,7 @@ const LogoUpload = () => {
           <ul className="text-sm text-muted-foreground space-y-1">
             <li>• Use imagens com fundo transparente (PNG)</li>
             <li>• Recomendado: 200x60px ou proporção similar</li>
-            <li>• A logo será exibida no cabeçalho do site</li>
+            <li>• A logo será exibida no cabeçalho e rodapé do site</li>
           </ul>
         </div>
       </div>

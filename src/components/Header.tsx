@@ -10,13 +10,25 @@ const Header = () => {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <div className="bg-gradient-to-r from-primary to-primary-light text-primary-foreground p-2 rounded-lg">
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M16 2L26 8V16C26 22 20 28 16 30C12 28 6 22 6 16V8L16 2Z" stroke="currentColor" strokeWidth="2" fill="currentColor" fillOpacity="0.2"/>
-                <circle cx="16" cy="16" r="6" stroke="currentColor" strokeWidth="2" fill="none"/>
-                <path d="M16 12V16L19 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-              </svg>
-            </div>
+            {loading ? (
+              <div className="bg-gradient-to-r from-primary to-primary-light text-primary-foreground p-2 rounded-lg animate-pulse">
+                <div className="w-8 h-8"></div>
+              </div>
+            ) : config?.logo_url ? (
+              <img 
+                src={config.logo_url} 
+                alt="Sulvel Tacógrafos" 
+                className="h-12 w-auto object-contain"
+              />
+            ) : (
+              <div className="bg-gradient-to-r from-primary to-primary-light text-primary-foreground p-2 rounded-lg">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M16 2L26 8V16C26 22 20 28 16 30C12 28 6 22 6 16V8L16 2Z" stroke="currentColor" strokeWidth="2" fill="currentColor" fillOpacity="0.2"/>
+                  <circle cx="16" cy="16" r="6" stroke="currentColor" strokeWidth="2" fill="none"/>
+                  <path d="M16 12V16L19 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                </svg>
+              </div>
+            )}
             <div>
               <h1 className="text-2xl font-bold text-foreground">Sulvel</h1>
               <p className="text-sm text-muted-foreground">Tacógrafos</p>
