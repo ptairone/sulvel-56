@@ -4,7 +4,7 @@ const WhatsAppButton = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   const handleClick = () => {
-    window.open('https://wa.me/5548935249958?text=Olá! Gostaria de mais informações sobre os serviços de tacógrafos.', '_blank');
+    window.open('https://wa.me/554835249958?text=Olá! Gostaria de mais informações sobre os serviços de tacógrafos.', '_blank');
   };
 
   return (

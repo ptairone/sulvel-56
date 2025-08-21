@@ -59,6 +59,48 @@ export const useSiteConfig = () => {
     };
 
     loadData();
+
+    // Configurar realtime para site_config
+    const configChannel = supabase
+      .channel('site_config_changes')
+      .on('postgres_changes', 
+        { event: '*', schema: 'public', table: 'site_config' },
+        (payload) => {
+          console.log('Config atualizada:', payload);
+          if (payload.eventType === 'UPDATE') {
+            setConfig(payload.new as SiteConfig);
+          }
+        }
+      )
+      .subscribe();
+
+    // Configurar realtime para admin_services
+    const servicesChannel = supabase
+      .channel('admin_services_changes')
+      .on('postgres_changes', 
+        { event: '*', schema: 'public', table: 'admin_services' },
+        () => {
+          console.log('Serviços atualizados, recarregando...');
+          // Recarregar serviços quando houver mudanças
+          supabase
+            .from('admin_services')
+            .select('*')
+            .eq('active', true)
+            .order('order_index')
+            .then(({ data, error }) => {
+              if (!error) {
+                setServices(data || []);
+              }
+            });
+        }
+      )
+      .subscribe();
+
+    // Cleanup dos canais quando o componente for desmontado
+    return () => {
+      supabase.removeChannel(configChannel);
+      supabase.removeChannel(servicesChannel);
+    };
   }, []);
 
   return { config, services, loading };
