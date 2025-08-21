@@ -60,7 +60,7 @@ const Footer = () => {
 
         <div className="border-t border-background/20 pt-8 text-center">
           <p className="text-background/60">
-            © 2024 Sulvel Tacógrafos. Todos os direitos reservados. | Autorizado INMETRO
+            © {new Date().getFullYear()} Sulvel Tacógrafos. Todos os direitos reservados. | Autorizado INMETRO
           </p>
         </div>
       </div>
