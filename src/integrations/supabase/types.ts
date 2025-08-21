@@ -171,6 +171,7 @@ export type Database = {
           email: string | null
           horario_funcionamento: string | null
           id: string
+          localizacao: string | null
           logo_url: string | null
           telefone: string | null
           updated_at: string
@@ -180,6 +181,7 @@ export type Database = {
           email?: string | null
           horario_funcionamento?: string | null
           id?: string
+          localizacao?: string | null
           logo_url?: string | null
           telefone?: string | null
           updated_at?: string
@@ -189,6 +191,7 @@ export type Database = {
           email?: string | null
           horario_funcionamento?: string | null
           id?: string
+          localizacao?: string | null
           logo_url?: string | null
           telefone?: string | null
           updated_at?: string

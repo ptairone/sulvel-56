@@ -5,6 +5,7 @@ interface SiteConfig {
   telefone: string;
   email: string;
   horario_funcionamento: string;
+  localizacao: string;
   logo_url: string | null;
 }
 

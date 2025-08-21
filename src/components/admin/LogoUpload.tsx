@@ -7,6 +7,21 @@ import { Card, CardContent } from "@/components/ui/card";
 import { toast } from "@/components/ui/use-toast";
 import { Upload, Trash2, Save, Image as ImageIcon } from "lucide-react";
 
+const updateFavicon = (logoUrl: string) => {
+  // Remove favicon existente
+  const existingFavicon = document.querySelector('link[rel="icon"]');
+  if (existingFavicon) {
+    existingFavicon.remove();
+  }
+
+  // Adiciona novo favicon
+  const link = document.createElement('link');
+  link.rel = 'icon';
+  link.type = 'image/png';
+  link.href = logoUrl;
+  document.head.appendChild(link);
+};
+
 const LogoUpload = () => {
   const [logoUrl, setLogoUrl] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
@@ -74,11 +89,14 @@ const LogoUpload = () => {
         throw updateError;
       }
 
+      // Atualizar favicon
+      updateFavicon(data.publicUrl);
+
       setLogoUrl(data.publicUrl);
 
       toast({
-        title: "Logo atualizada!",
-        description: "A nova logo foi salva com sucesso.",
+        title: "Logo e favicon atualizados!",
+        description: "A nova logo foi salva e o favicon foi alterado.",
       });
     } catch (error: any) {
       toast({
