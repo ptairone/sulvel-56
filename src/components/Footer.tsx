@@ -1,7 +1,9 @@
 import { Badge } from "@/components/ui/badge";
 import { Phone, Mail, Shield } from "lucide-react";
+import { useSiteConfig } from "@/hooks/useSiteConfig";
 
 const Footer = () => {
+  const { config, loading } = useSiteConfig();
   return (
     <footer className="bg-foreground text-background py-12">
       <div className="container mx-auto px-4">
@@ -45,14 +47,18 @@ const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
                 <Phone className="h-5 w-5 text-primary" />
-                <span className="text-background/80">(11) 99999-9999</span>
+                <span className="text-background/80">
+                  {loading ? "Carregando..." : config?.telefone || "(11) 99999-9999"}
+                </span>
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 text-primary" />
-                <span className="text-background/80">contato@sulvel.com</span>
+                <span className="text-background/80">
+                  {loading ? "Carregando..." : config?.email || "contato@sulvel.com"}
+                </span>
               </div>
               <div className="text-background/80">
-                <strong>Horário:</strong> Segunda à Sexta, 8h às 18h
+                <strong>Horário:</strong> {loading ? "Carregando..." : (config?.horario_funcionamento || "Segunda à Sexta, 8h às 18h")}
               </div>
             </div>
           </div>
