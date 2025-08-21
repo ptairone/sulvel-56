@@ -1,35 +1,37 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Gauge, Settings, FileCheck, Wrench, Phone, CheckCircle } from "lucide-react";
+import { Gauge, Settings, FileCheck, Wrench, Phone, CheckCircle, Shield, Award, Clipboard, Hammer } from "lucide-react";
+import { useSiteConfig } from "@/hooks/useSiteConfig";
+
+const iconMap: { [key: string]: any } = {
+  Gauge,
+  Settings,
+  FileCheck,
+  Wrench,
+  Shield,
+  Award,
+  Clipboard,
+  Tool: Hammer
+};
 
 const Services = () => {
-  const services = [
-    {
-      icon: Gauge,
-      title: "Instalação de Tacógrafos",
-      description: "Instalação profissional de tacógrafos de velocidade com certificação INMETRO",
-      features: ["Instalação certificada", "Calibração precisa", "Documentação completa"]
-    },
-    {
-      icon: Settings,
-      title: "Manutenção e Calibração",
-      description: "Serviços de manutenção preventiva e calibração para garantir precisão",
-      features: ["Manutenção preventiva", "Calibração oficial", "Relatórios técnicos"]
-    },
-    {
-      icon: FileCheck,
-      title: "Verificação e Certificação",
-      description: "Verificação oficial e emissão de certificados de conformidade",
-      features: ["Verificação INMETRO", "Certificados oficiais", "Conformidade garantida"]
-    },
-    {
-      icon: Wrench,
-      title: "Reparo e Ajustes",
-      description: "Reparo especializado e ajustes técnicos em tacógrafos",
-      features: ["Reparo especializado", "Peças originais", "Garantia de qualidade"]
-    }
-  ];
+  const { services, loading } = useSiteConfig();
+
+  if (loading) {
+    return (
+      <section id="servicos" className="py-24 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="text-center">
+            <div className="animate-pulse space-y-4">
+              <div className="h-8 bg-muted rounded w-1/3 mx-auto"></div>
+              <div className="h-4 bg-muted rounded w-2/3 mx-auto"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="servicos" className="py-24 bg-background">
@@ -48,37 +50,40 @@ const Services = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-          {services.map((service, index) => (
-            <Card key={index} className="shadow-soft hover:shadow-medium transition-all duration-300 group">
-              <CardHeader>
-                <div className="flex items-center space-x-4 mb-4">
-                  <div className="bg-primary/10 p-3 rounded-lg group-hover:bg-primary/20 transition-colors">
-                    <service.icon className="h-6 w-6 text-primary" />
+          {services.map((service, index) => {
+            const IconComponent = iconMap[service.icon] || Settings;
+            return (
+              <Card key={service.id} className="shadow-soft hover:shadow-medium transition-all duration-300 group">
+                <CardHeader>
+                  <div className="flex items-center space-x-4 mb-4">
+                    <div className="bg-primary/10 p-3 rounded-lg group-hover:bg-primary/20 transition-colors">
+                      <IconComponent className="h-6 w-6 text-primary" />
+                    </div>
+                    <div>
+                      <CardTitle className="text-xl">{service.title}</CardTitle>
+                    </div>
                   </div>
-                  <div>
-                    <CardTitle className="text-xl">{service.title}</CardTitle>
-                  </div>
-                </div>
-                <CardDescription className="text-base">
-                  {service.description}
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 mb-6">
-                  {service.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-center space-x-2 text-sm text-muted-foreground">
-                      <CheckCircle className="h-4 w-4 text-primary flex-shrink-0" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Button variant="cta" className="w-full">
-                  <Phone className="h-4 w-4 mr-2" />
-                  Solicitar Serviço
-                </Button>
-              </CardContent>
-            </Card>
-          ))}
+                  <CardDescription className="text-base">
+                    {service.description}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-2 mb-6">
+                    {service.features.map((feature, idx) => (
+                      <li key={idx} className="flex items-center space-x-2 text-sm text-muted-foreground">
+                        <CheckCircle className="h-4 w-4 text-primary flex-shrink-0" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <Button variant="cta" className="w-full">
+                    <Phone className="h-4 w-4 mr-2" />
+                    Solicitar Serviço
+                  </Button>
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
 
         <div className="bg-gradient-subtle rounded-2xl p-8 md:p-12 text-center">

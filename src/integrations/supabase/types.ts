@@ -14,6 +14,42 @@ export type Database = {
   }
   public: {
     Tables: {
+      admin_services: {
+        Row: {
+          active: boolean
+          created_at: string
+          description: string
+          features: string[]
+          icon: string
+          id: string
+          order_index: number
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          description: string
+          features?: string[]
+          icon?: string
+          id?: string
+          order_index?: number
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          description?: string
+          features?: string[]
+          icon?: string
+          id?: string
+          order_index?: number
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       encontros: {
         Row: {
           created_at: string | null
@@ -126,6 +162,36 @@ export type Database = {
           id?: string
           nome?: string | null
           ultimo_acesso?: string | null
+        }
+        Relationships: []
+      }
+      site_config: {
+        Row: {
+          created_at: string
+          email: string | null
+          horario_funcionamento: string | null
+          id: string
+          logo_url: string | null
+          telefone: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          horario_funcionamento?: string | null
+          id?: string
+          logo_url?: string | null
+          telefone?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          horario_funcionamento?: string | null
+          id?: string
+          logo_url?: string | null
+          telefone?: string | null
+          updated_at?: string
         }
         Relationships: []
       }

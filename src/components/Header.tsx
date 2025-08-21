@@ -1,7 +1,10 @@
 import { Button } from "@/components/ui/button";
-import { Phone, Mail } from "lucide-react";
+import { Phone, Mail, Settings } from "lucide-react";
+import { Link } from "react-router-dom";
+import { useSiteConfig } from "@/hooks/useSiteConfig";
 
 const Header = () => {
+  const { config, loading } = useSiteConfig();
   return (
     <header className="bg-background/95 backdrop-blur-sm border-b border-border sticky top-0 z-50">
       <div className="container mx-auto px-4 py-4">
@@ -20,31 +23,38 @@ const Header = () => {
             </div>
           </div>
           
-          <nav className="hidden md:flex items-center space-x-8">
-            <a href="#inicio" className="text-foreground hover:text-primary transition-colors font-medium">
-              Início
-            </a>
-            <a href="#sobre" className="text-foreground hover:text-primary transition-colors font-medium">
-              Sobre
-            </a>
-            <a href="#servicos" className="text-foreground hover:text-primary transition-colors font-medium">
-              Serviços
-            </a>
-            <a href="#contato" className="text-foreground hover:text-primary transition-colors font-medium">
-              Contato
-            </a>
-          </nav>
+            <nav className="hidden md:flex items-center space-x-8">
+              <a href="#inicio" className="text-foreground hover:text-primary transition-colors font-medium">
+                Início
+              </a>
+              <a href="#sobre" className="text-foreground hover:text-primary transition-colors font-medium">
+                Sobre
+              </a>
+              <a href="#servicos" className="text-foreground hover:text-primary transition-colors font-medium">
+                Serviços
+              </a>
+              <a href="#contato" className="text-foreground hover:text-primary transition-colors font-medium">
+                Contato
+              </a>
+              <Link to="/auth" className="text-muted-foreground hover:text-primary transition-colors">
+                <Settings className="h-4 w-4" />
+              </Link>
+            </nav>
 
           <div className="flex items-center space-x-4">
             <div className="hidden lg:flex items-center space-x-4 text-sm">
-              <div className="flex items-center space-x-2 text-muted-foreground">
-                <Phone className="h-4 w-4" />
-                <span>(11) 99999-9999</span>
-              </div>
-              <div className="flex items-center space-x-2 text-muted-foreground">
-                <Mail className="h-4 w-4" />
-                <span>contato@sulvel.com</span>
-              </div>
+              {!loading && config && (
+                <>
+                  <div className="flex items-center space-x-2 text-muted-foreground">
+                    <Phone className="h-4 w-4" />
+                    <span>{config.telefone}</span>
+                  </div>
+                  <div className="flex items-center space-x-2 text-muted-foreground">
+                    <Mail className="h-4 w-4" />
+                    <span>{config.email}</span>
+                  </div>
+                </>
+              )}
             </div>
             <Button variant="cta" size="sm">
               Orçamento

@@ -5,8 +5,10 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Phone, Mail, MapPin, Clock, Send } from "lucide-react";
+import { useSiteConfig } from "@/hooks/useSiteConfig";
 
 const Contact = () => {
+  const { config, loading } = useSiteConfig();
   return (
     <section id="contato" className="py-24 bg-gradient-subtle">
       <div className="container mx-auto px-4">
@@ -33,7 +35,7 @@ const Contact = () => {
             </CardHeader>
             <CardContent>
               <CardDescription className="text-base font-medium text-foreground mb-2">
-                (11) 99999-9999
+                {loading ? "Carregando..." : config?.telefone || "(11) 99999-9999"}
               </CardDescription>
               <CardDescription>
                 Atendimento de segunda à sexta
@@ -50,7 +52,7 @@ const Contact = () => {
             </CardHeader>
             <CardContent>
               <CardDescription className="text-base font-medium text-foreground mb-2">
-                contato@sulvel.com
+                {loading ? "Carregando..." : config?.email || "contato@sulvel.com"}
               </CardDescription>
               <CardDescription>
                 Resposta em até 24 horas
@@ -67,10 +69,10 @@ const Contact = () => {
             </CardHeader>
             <CardContent>
               <CardDescription className="text-base font-medium text-foreground mb-2">
-                8h às 18h
+                {loading ? "Carregando..." : (config?.horario_funcionamento || "8h às 18h")}
               </CardDescription>
               <CardDescription>
-                Segunda à Sexta-feira
+                {config?.horario_funcionamento?.includes('\n') ? '' : 'Segunda à Sexta-feira'}
               </CardDescription>
             </CardContent>
           </Card>
